@@ -7,7 +7,6 @@ import (
 	"os"
 
 	"github.com/gofiber/fiber/v2"
-	"github.com/gofiber/fiber/v2/middleware/cors"
 	"github.com/joho/godotenv"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
@@ -51,10 +50,7 @@ func main() {
 	collection = client.Database("todolist_db").Collection("tasks")
 
 	app := fiber.New()
-	app.Use(cors.New(cors.Config{
-		AllowOrigins: "http://localhost:5173",
-		AllowHeaders: "Origin,Content-Type,Accept",
-	}))
+
 	app.Get("/api/tasks", getTasks)
 	app.Post("/api/create", createTask)
 	app.Patch("/api/update/:id", updateTask)
